@@ -102,18 +102,12 @@ public class Day02_2 {
 				// 작은상자에서 큰상자로 이동 가능 // 큰상자에서 작은상자로 이동 불가 
 		byte bytevalue = 10;
 		int intvalue = bytevalue; // 자동 형변환 [가능 ] byte -> int  
-		
 		//byte bytevalue2 = intvalue;	// 불가  int -> byte 
 		
 			// 2. 강제 타입변환 [ 메모리손실 => 데이터 손실 ]
 				// 자료형 변수명 = (자료형)변수명;
 			// p.54
-		
-		//byte bytevalue2 = intvalue; X 에러 더 작은 타입으로 이동 못하기때문에 강제형변환
-		byte bytevalue2 = (byte)intvalue; // o 정상실행
-		
-	
-		
+		byte bytevalue2 = (byte)intvalue;
 		
 		// 연습문제
 			// 1 : 4
