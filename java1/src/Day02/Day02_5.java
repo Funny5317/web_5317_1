@@ -21,6 +21,7 @@ public class Day02_5 {
 		String 이름 = "유재석"; // 영문 : 1바이트  // 한글 : 2바이트 
 		String 이름2 = new String("유재석");
 		
+		
 		System.out.println( 이름 == 이름2 );
 		System.out.println( 이름.equals(이름2) );
 		
