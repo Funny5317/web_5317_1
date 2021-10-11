@@ -1,0 +1,46 @@
+package Shop;
+
+public class Basket {
+	
+	private String m_상품명;	// int m_상품명 = new int[100][10];
+	private int m_상품개수; // int m_상품개수 = new int[100][10];
+	
+
+//-------------------------------------------------- 생성자
+	
+	
+	public Basket(String m_상품명, int m_상품개수 ) {
+		this.m_상품명 = m_상품명;
+		this.m_상품개수 = m_상품개수;
+		
+		
+	}
+
+	
+	
+//-------------------------------------------------- 메소드
+	
+	
+
+
+
+	
+
+
+	public String getM_상품명() {
+		return m_상품명;
+	}
+
+	public void setM_상품명(String m_상품명) {
+		this.m_상품명 = m_상품명;
+	}
+
+	public int getM_상품개수() {
+		return m_상품개수;
+	}
+
+	public void setM_상품개수(int m_상품개수) {
+		this.m_상품개수 = m_상품개수;
+	}
+	
+}
