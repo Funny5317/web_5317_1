@@ -1,0 +1,187 @@
+package Shop;
+
+public class Member {	// 회원 관리 클래스
+	
+// 1. 필드
+	
+	private String m_회원명;
+	private String m_아이디;
+	private String m_비밀번호;
+	private String m_생년월일;
+	
+		
+	
+	
+// 2. 생성자
+	
+			
+	
+	public Member(String m_id , String m_pw) {
+		this.m_아이디 = m_id;	this.m_비밀번호 = m_pw;
+	}
+	
+	public Member(String 회원명, String m_id , String m_pw , String 생년월일) {
+		this.m_회원명 = 회원명; this.m_아이디 = m_id; 
+		this.m_비밀번호 = m_pw; this.m_생년월일 = 생년월일;
+	}
+
+	
+		
+// 3. 메소드
+
+	// (회원가입) 메소드
+	public static boolean singup() { 
+		System.out.println("=== 회원가입 ===");
+		System.out.println("Id 입력 : ");			String id = Shop.scanner.next();
+		boolean check = idcheck(id);
+		if(check) {
+			System.out.println("사용할 수 없는 아이디입니다.");
+			return false;
+		}
+		System.out.println("Pw 입력 : ");			String pw = Shop.scanner.next();
+		System.out.println("회원명 입력 : ");		String 회원명 = Shop.scanner.next();
+		System.out.println("생년월일 입력 : ");		String 생년월일 = Shop.scanner.next();
+		Member member = new Member(회원명 , id , pw , 생년월일);
+		for(int i = 0; i < Shop.members.length; i++) {
+			if(Shop.members[i] == null) {
+				Shop.members[i] = member;
+				System.out.println("회원가입이 완료되었습니다.");
+				return true;
+			}
+		}
+		return false;
+	}
+	
+	// (아이디 중복체크) 메소드
+			public static boolean idcheck( String id ) {
+				for( int i = 0 ; i < Shop.members.length; i++ ) {
+					if( Shop.members[i] != null && 
+							Shop.members[i].getM_아이디().equals(id) ) {
+						return true; // 인수와 동일한 아이디가 배열내 존재하면 true 
+					}
+				}
+				return false; // 배열내 동일한 값이 없을경우 
+			}
+	
+	// (로그인) 메소드
+	public static String login(){
+		System.out.println("=== 로그인 ===");
+		System.out.println("Id 입력 : ");			String id = Shop.scanner.next();
+		System.out.println("Pw 입력 : ");			String pw = Shop.scanner.next();
+		if(id.equals("admin")&&pw.equals("admin")) {
+			System.out.println("=== 관리자 페이지 ===");
+			// 관리자 페이지 연결메소드 입력	
+			return "admin";
+		}
+		for(int i = 0; i < Shop.members.length; i++) {
+			if(Shop.members[i] != null && 
+					Shop.members[i].getM_아이디().equals(id) &&
+					Shop.members[i].getM_비밀번호().equals(pw))
+			return id;
+		}
+		return null;
+	}
+	
+	// (아이디 찾기) 메소드
+
+	public static String findid() {
+		System.out.println("=== 아이디 찾기 ===");
+		System.out.println("성명 : ");		String 회원명 = Shop.scanner.next();
+		System.out.println("생년월일 : ");		String 생년월일 = Shop.scanner.next();
+		for(int i = 0; i < Shop.members.length; i++) {
+			if ( Shop.members[i] != null  &&
+				 Shop.members[i].getM_회원명().equals(회원명)  &&
+					Shop.members[i].getM_생년월일().equals(생년월일) )
+				System.out.println("- 회원정보와 일치하는 아이디 확인 -");
+				return Shop.members[i].getM_아이디();
+		}
+		return null;
+	}
+	
+	// (비밀번호 찾기) 메소드
+	
+	public static String findpw() {
+		System.out.println("=== 비밀번호 찾기 ===");
+		System.out.println("아이디 : ");		String 회원명 = Shop.scanner.next();
+		System.out.println("생년월일 : ");		String 생년월일 = Shop.scanner.next();
+		for(int i = 0; i < Shop.members.length; i++) {
+			if((Shop.members[i] != null) &&
+				(Shop.members[i].getM_회원명().equals(회원명)) &&
+					(Shop.members[i].getM_생년월일().equals(생년월일)))
+				System.out.println("- 회원정보의 비밀번호 확인 -");
+				return Shop.members[i].getM_비밀번호();
+		}
+		return null;
+	} 
+
+	
+	
+
+
+
+
+	
+	
+//	public static login(String m_id , String m_pw) {
+//		System.out.println("=== login ===");
+//		System.out.println("Id 입력 : ");		int String m_id = Shop.scanner.nextInt();
+//		System.out.println("Pw 입력 : ");		int String m_pw = Shop.scanner.nextInt();
+//		
+//		
+//		
+//	}
+
+	
+	
+	
+	//-----get set 메소드-----//
+	
+	public String getM_회원명() {
+		return m_회원명;
+	}
+
+
+
+	public void setM_회원명(String m_회원명) {
+		this.m_회원명 = m_회원명;
+	}
+
+
+
+	public String getM_아이디() {
+		return m_아이디;
+	}
+
+
+
+	public void setM_아이디(String m_아이디) {
+		this.m_아이디 = m_아이디;
+	}
+
+
+
+	public String getM_비밀번호() {
+		return m_비밀번호;
+	}
+
+
+
+	public void setM_비밀번호(String m_비밀번호) {
+		this.m_비밀번호 = m_비밀번호;
+	}
+
+
+
+	public String getM_생년월일() {
+		return m_생년월일;
+	}
+
+
+
+	public void setM_생년월일(String m_생년월일) {
+		this.m_생년월일 = m_생년월일;
+	}
+	
+	
+
+}
