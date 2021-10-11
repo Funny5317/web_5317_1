@@ -1,0 +1,94 @@
+package Shop; 
+
+import java.util.Scanner;
+
+import Day07.Book;
+
+public class Shop {	// Shop 실행 클래스
+	
+	public static Scanner scanner = new Scanner(System.in);
+	public static Member[] members = new Member[100];	// 회원 저장 칸
+	public static Product[] products = new Product[100]; // 상품 등록 칸
+	public static Basket[][] baskets = new Basket[100][10];	// 회원용 장바구니 칸
+	
+	
+	// 코드 실행지점
+	public static void main(String[] args) {
+		 main_menu();
+	}
+    
+	// 1. (메인 메뉴) 로그인_ 메소드
+	public static void main_menu() {
+		 
+		while(true) {
+		System.out.println("=====Shop 프로그램 =====");
+		System.out.println("=== 로그인 페이지 ===");
+		System.out.println("1. 로그인 2. 회원가입 3. 아이디찾기 4. 비밀번호 찾기 5. 종료" );
+		System.out.println("선택 : ");	int sc = scanner.nextInt();
+		
+		if(sc == 1) {
+			String loginId = Member.login();
+			if(loginId == null) {
+				System.out.println("회원정보가 존재하지 않습니다.");
+			}
+			else if(loginId.equals("admin")) {
+				admin_menu(); 
+			}
+			else {
+				member_menu(loginId);
+			}
+		}
+		else if(sc == 2) {Member.singup();}
+		else if(sc == 3) {
+				String findid = Member.findid();
+				if ( findid == null) {System.out.println("동일한 회원정보가 없습니다.");}
+				else {System.out.println("회원님의 아이디는 " + findid + " 입니다.");
+				}
+			}
+		else if(sc == 4) {
+				String findpw = Member.findpw();
+				if ( findpw == null) {System.out.println("동일한 회원정보가 없습니다.");}
+				else {System.out.println("회원님의 비밀번호는 " + findpw + " 입니다.");
+				}
+			}
+		else if(sc == 5) {break;}
+		else System.out.println("올바른 번호를 입력해주세요");
+		}
+		System.out.println("프로그램을 종료합니다.");
+	}
+	
+	// 2. (회원 메뉴) 메소드
+	
+	public static void member_menu( String loginid ) {
+		Product product = new Product(); // Book 임시객체 : 메소드 호출용
+		while(true) {
+			System.out.println(loginid+ "님 환영합니다. ");
+			System.out.println(" ---------- Menu ----------");
+			System.out.println(" 1.상품목록 | 2.구매 | 3.환불 | 4.장바구니 | 5.로그아웃 ");
+			System.out.print("선택 : ");	int sc = scanner.nextInt();
+			if( sc == 1 ) { product.product_list(); }
+			if( sc == 2 ) { product.product_buy( loginid ); }
+//			if( sc == 3 ) { product.product_refund( loginid ); }
+			if( sc == 4 ) { product.product_basket( loginid ); }
+			if( sc == 5 ) { System.out.println(" [[ 알림 ]] : 로그아웃 되었습니다 "); return;}
+		}
+	}
+	
+
+	// 3. (관리자 메뉴) 메소드
+
+public static void admin_menu() {
+	Shop Shop = new Shop(); // Book 임시객체 : 메소드 호출용 
+	while(true) {
+		System.out.println(" ---------- Admin Menu ----------");
+		System.out.println(" 1.상품등록 | 2.상품목록 | 3.로그아웃 ");
+		System.out.print("선택 : ");	int ch = scanner.nextInt();
+		if( ch == 1 ) { Product.product_add();}
+		if( ch == 2 ) { Product.product_list(); } 
+		if( ch == 3 ) { System.out.println(" [[ 알림 ]] : 로그아웃 되었습니다 "); return; }
+	}
+
+}
+}
+
+
