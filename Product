@@ -1,0 +1,235 @@
+package Shop;
+
+import Day07.BookApplication;
+
+public class Product {	// 상품 관리 플래스
+
+// 1. 필드
+	
+	String 상품명;
+	int 상품가격;
+	int 상품재고;
+	
+	
+
+	
+	
+// 2. 생성자
+
+
+	public Product() {
+		
+	}
+	
+	
+	
+	public Product(String 상품명 , int 상품가격 , int 상품재고) {
+		this.상품명 = 상품명; this.상품가격 = 상품가격; this.상품재고 = 상품재고;
+	}
+	
+	
+// 3. 메소드
+	
+	
+	
+	// 회원 - 장바구니
+	
+	public static boolean product_basket(String loginid) {
+		int sum = 0;
+		while(true) {
+		System.out.println("---장바구니 목록---");
+		System.out.println("==============================");
+		for(int i = 0; i < Shop.members.length; i++) {// 회원 저장 위치에서 조건식으로 들어감
+			if(Shop.members[i] != null && Shop.members[i].equals(loginid)) // 만약 0부터 99까지 돌리면서 회원 아이디랑 같은값을가진걸 발견하면 조건식
+				for(int j = 0; j < 10; j++) {// j는 0부터 9까지
+					for(int k = 0; k < Shop.products.length; k++) // 100번 루프
+						if(Shop.products[k].get상품명() != null && Shop.baskets[i][j].getM_상품명() != null && // 상품칸에 값이 있거나 , 멤버 바스켓에 값이 있을때
+							Shop.products[k].get상품명().equals(Shop.baskets[i][j].getM_상품명())) { // 상품칸과 멤버바구니 상품명을 비교해서 같으면
+							sum += Shop.products[k].get상품가격() * Shop.baskets[i][j].getM_상품개수(); // 상품명과 같은자리에 있는 상품가격의 값을 따내서 , 멤버바구니 상품명과 같은위치에있는 상품개수를 곱해서 sum에 저장.
+							System.out.println(Shop.baskets[i][j].getM_상품명()+ "t" + Shop.baskets[i][j].getM_상품개수() + 
+									"t" + Shop.products[k].get상품가격());
+							return false;
+				}
+		}
+	}
+	
+	
+			// 장바구니가 있는데 로그인 아이디를 앞에두고 뒷자리에 배열로 상품명과 상품수를 저장한걸 꺼내서 출력하게 했다
+			// 위기 2. 장바구니 내에 적혀있는 상품명의 가격을 sum에 저장해서 찍어주기위해  값을 이동해야한다.
+		
+	  System.out.println("총 구매하실 금액은 "+sum+" 원 입니다. "); // 장바구니에 있는 모든 물건의 가격을 수량 합산해서 나타냄.
+	  System.out.println("==============================");
+	  System.out.println(" 1. 결제 | 2. 전체취소 | 3. 나가기 ");
+	  System.out.println("==============================");
+	  System.out.println(" 선택 : ");	 	int sc = Shop.scanner.nextInt();
+	  if(sc == 1) {}
+	  else if(sc == 2) {}
+	  else if(sc == 3) {}
+	  else {System.out.println("올바른 번호를 입력해주십시오.");}
+				
+		
+		}
+		
+	}
+
+	
+	// 회원 - 상품 구매관련 메소드
+	
+	public static boolean product_buy(String loginid) {
+		
+		while(true) {
+			System.out.println("===구매 페이지===");
+			System.out.println("==============");
+			System.out.println("구매하실 상품명 입력 : ");	String m_상품명 = Shop.scanner.next();
+			System.out.println("구매하실 상품 수량 입력 : ");	int m_상품개수 = Shop.scanner.nextInt();
+			for(int i = 0; i < Shop.members.length; i++) {
+				if(Shop.members[i] != null && Shop.members[i].equals(loginid))
+					System.out.println("아아");
+					for(int k = 0; k < Shop.products.length; k++) {
+						for(int j = 0; j < 10; j++) {
+							System.out.println("j" + j);
+							System.out.println(Shop.products[k].get상품명() + "Shop.products[k].get상품명()");
+							System.out.println(Shop.products[k].get상품재고() + "Shop.products[k].get상품재고()");
+							System.out.println(Shop.baskets[i][j] + "Shop.baskets[i][j]");
+							System.out.println(Shop.baskets[i][j].getM_상품명() + "Shop.baskets[i][j].getM_상품명()");
+							if(Shop.products[k].get상품명() != null && Shop.baskets[i][j].getM_상품명() == null &&
+								Shop.products[k].get상품명().equals(m_상품명) && Shop.products[k].get상품재고() < m_상품개수) {
+								Shop.baskets[i][j].setM_상품명(m_상품명);
+								Shop.baskets[i][j].setM_상품개수(m_상품개수);
+								System.out.println("상품이 장바구니에 담겼습니다.");
+								return true;
+							}
+						}
+						
+						{System.out.println("상품명 & 상품개수 & 장바구니칸을 확인해주십시오.");}
+						return true;
+							
+					}//100번
+					
+			}//1번
+		
+		}
+	
+	
+	}
+
+	
+	
+	
+	
+
+
+	// 관리자 - 상품 등록 메소드
+	public static boolean product_add() {
+		System.out.println("===상품 등록 페이지===");
+		System.out.println("상품명 : ");		String 상품명 = Shop.scanner.next();
+		for(int i = 0; i < Shop.products.length; i++) {
+				if(Shop.products[i] != null &&
+						Shop.products[i].get상품명().equals(상품명)) {
+					System.out.println(상품명 + " 추가&수정");
+					System.out.println("상품명(수정) : ");		String 상품이름 = Shop.scanner.next();
+					System.out.println("상품가격(수정) : ");		int 상품가격 = Shop.scanner.nextInt();
+					System.out.println("상품재고(추가수량) : ");		int 플러스 = Shop.scanner.nextInt();
+					System.out.println("상품재고(감소수량) : ");		int 마이너스 = Shop.scanner.nextInt();
+					Shop.products[i].set상품명(상품이름);
+					Shop.products[i].set상품가격(상품가격);
+					Shop.products[i].set상품재고(Shop.products[i].get상품재고() + 플러스);
+					Shop.products[i].set상품재고(Shop.products[i].get상품재고() - 마이너스);
+					return true;
+				}
+		}
+		System.out.println("상품가격 : ");		int 상품가격 = Shop.scanner.nextInt();
+		System.out.println("상품재고 : ");		int 상품재고 = Shop.scanner.nextInt();
+		
+		Product product = new Product(상품명 , 상품가격 , 상품재고);
+		for(int i = 0; i < Shop.products.length; i++) {
+			if(Shop.products[i] == null) {
+				System.out.println("상품이 등록되었습니다.");
+				Shop.products[i]=product;
+				return true;
+			}
+		}
+		return false;
+	}
+	
+	
+	public static void product_list() {
+		System.out.println("[상품 목록]");
+		System.out.println("-------------------");
+		System.out.println("상품명\t상품가격\t상품재고");
+		System.out.println("-------------------");
+		for(int i = 0; i < Shop.products.length; i++) {
+			if(Shop.products[i] != null) {
+				
+				System.out.println(Shop.products[i].get상품명() +"\t"+
+						Shop.products[i].get상품가격()	+"\t"+
+						Shop.products[i].get상품재고());
+			}
+		}
+	}
+	
+	// 상품명 중복 체크 매소드
+	public static boolean product_check( String 상품명 ) {
+		for( int i = 0 ; i < Shop.products.length ; i++ ) {
+			if( Shop.products[i] != null && 
+					Shop.products[i].get상품명().equals(상품명) ) {
+				return true;
+			}
+		}
+		return false;
+	}
+	
+//	// 상품 가격 가져오는 메소드 // 미완성
+//	
+//	public static int product_price(String 상품명) {
+//		for( int i = 0; i < Shop.products.length; i++) {
+//			if( Shop.products[i].get상품명().equals(상품명)) {
+//				Shop.products[i].get상품가격();
+//			}
+//		} 
+//	}
+	
+	
+	
+	
+	
+	//-----get set 메소드-----//
+	
+	public String get상품명() {
+		return 상품명;
+	}
+
+	public void set상품명(String 상품명) {
+		this.상품명 = 상품명;
+	}
+
+	public int get상품가격() {
+		return 상품가격;
+	}
+
+	public void set상품가격(int 상품가격) {
+		this.상품가격 = 상품가격;
+	}
+
+	public int get상품재고() {
+		return 상품재고;
+	}
+
+	public void set상품재고(int 상품재고) {
+		this.상품재고 = 상품재고;
+	}
+	
+	
+
+	
+	// 상품명보고 상품가격 값 연결하기
+//	for(int i = 0; i < Shop.members.length; i++) {// i는 0부터 99까지 
+//		if(Shop.members[i] != null && Shop.members[i].equals(loginid))
+//			for(int j = 0; j < 10; j++) {// j는 0부터 9까지
+//				for(int k = 0; k < Shop.products.length; k++)
+//					if(Shop.products[k].get상품명().equals(Shop.baskets[i][j].getM_상품명()))
+//						Shop.products[k].get상품가격() 
+	
+	
+	
+}
